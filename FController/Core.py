@@ -1,5 +1,7 @@
+import re
 from abc import ABCMeta
 from .Module import Module
+from .FControllerError import FControllerError
 
 """
 Core of the controller
@@ -72,12 +74,25 @@ class Core(object):
     Perform the main call of the module method
     """
 
-    def run(self):
-        pass
+    def run(self, path, data=[]):
+        path = self.__route(path)
+        print(path)
+        # getattr(self.modules[path.module], path.operation)(*data)
 
     """
     Check and build the payload call
     """
 
-    def route(self):
-        pass
+    def __route(self, path):
+        if re.compile('^[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+$').search(path) is None:
+            raise FControllerError('Incorrect module call pattern')
+
+        call_path = path.split(".")
+
+        if call_path[0] not in self.modules:
+            raise FControllerError('Module instance not found')
+
+        if call_path[1] not in dir(self.modules[call_path[0]]):
+            raise FControllerError('Module method requested is not available')
+
+        return {'name': call_path[0], 'operation': call_path[1]}
