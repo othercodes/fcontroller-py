@@ -1,19 +1,17 @@
-from var_dump import var_dump
-from CustomService import CustomService
-from FController.FControllerError import FControllerError
+#!/usr/bin/env python
 
-from FController import FController
-from CustomModule import CustomModule
+from fcontroller import *
 
 try:
 
     app = FController()
-    app.register_module('one', CustomModule('Rick'))
-    app.register_module('two', CustomModule('Morty'))
-    app.register_service('another', CustomService())
-    app.run('one.say_hello')
 
-    var_dump(app.modules)
+    app.set_module('one', 'CustomModule', ['Unay'])
+    app.set_module('two', 'CustomModule', ['Leo'])
+    app.set_service('another', 'CustomService')
+
+    app.run('one.hello')
+    app.run('two.hello')
 
 except FControllerError as exception:
     print(exception.message)

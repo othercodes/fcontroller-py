@@ -1,12 +1,14 @@
-from FController.Module import Module
+#!/usr/bin/env python
+
+from fcontroller.Module import Module
 
 
 class CustomModule(Module):
-    name = ''
 
     def __init__(self, name):
-        super(Module, self).__init__()
         self.name = name
 
-    def die(self):
-        self.services.another.say_hello('unay')
+    def hello(self):
+        self.another.say_hello(self.name)
+
+
