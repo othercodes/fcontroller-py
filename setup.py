@@ -8,7 +8,9 @@ setup(
     description='Container and Front Controller for modules or controllers.',
     author='Unay Santisteban',
     author_email='usantisteban@othercode.es',
-    url='http://othercode.es',
+    maintainer='Unay Santisteban',
+    url='https://github.com/othercodes/fcontroller-py',
     packages=['fcontroller'],
     license='MIT',
+    download_url='',
 )
